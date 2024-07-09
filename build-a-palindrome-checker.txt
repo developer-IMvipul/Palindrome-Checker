@@ -1,0 +1,227 @@
+** start of undefined **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1.0"> 
+    <link rel="stylesheet" href="styles.css">
+    <title>Palindrome Checker</title>
+  </head>
+  <body>
+    <section id="main">
+      <img src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg" alt="freeCodeCamp logo"></img>
+   
+      <p class="title">Is it a Palindrome?</p>
+      <div id="form">
+        <div id="input-area">
+          <label id="text" for="text-input">Enter in text to check for a palindrome:</label>
+          <input id="text-input">
+          <button id="check-btn" type="button">Check</button>
+          <p id="result"></p>
+        </div>
+          <p><span class="bulb">💡</span> A <span>palindrome</span> is a word or sentence that's spelled the same way both forward and backward, ignoring punctuation, case, and spacing.</p> 
+      </div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+** end of undefined **
+
+** start of undefined **
+
+//A palindrome is a word or phrase that can be read the same way forwards and backwards, 
+                       //ignoring punctuation, case, and spacing.
+//Note: You'll need to remove all non-alphanumeric characters (punctuation, spaces and symbols)
+                          // and turn everything into the same case (lower or upper case) in order to check for palindromes.
+//When you click on the #check-btn element without entering a value into the #text-input element, 
+                         //an alert should appear with the text "Please input a value"
+//When the #text-input element only contains the letter A and the #check-btn element is clicked, 
+                //the #result element should contain the text "A is a palindrome"
+
+//no empty value>alert--------no alphanumeric>lowercase>calculate
+
+//functional program
+
+
+
+
+
+const elements = {
+    input: document.getElementById("text-input"),
+    check: document.getElementById("check-btn"),
+    inputValue: document.getElementById("text-input").value,
+    para: document.getElementById("result")
+} 
+
+function filterInput(){
+    const regex = /[a-zA-Z0-9]/gi;
+    const string = elements.input.value.toLowerCase();
+    const arr = string.split("").filter(x=>x.match(regex));
+    const reverseArr = [...arr].reverse();
+    return {
+        array1:arr,
+        array2:reverseArr
+    };
+}
+
+function emptyInput(){
+    const caseCheck = elements.input.value === "" ? true : false;
+    if(caseCheck){
+        alert("Please input a value");
+        elements.para.innerText = ""
+        elements.para.style.display = "none";
+        return;
+    }
+}
+
+function main(){
+    emptyInput();
+    const filtered = filterInput();
+    let isPalindrome;
+    
+    const a1 = JSON.stringify(filtered.array1);
+    const a2 = JSON.stringify(filtered.array2);
+
+    if(a1===a2){
+        console.log(a1,a2);
+        isPalindrome=true;
+    }else{
+        isPalindrome=false;
+    }
+
+    // for(let i=0;i<=filtered.array1.length-1;i++){            
+    //         if(filtered.array1[i]===filtered.array2[i]){
+    //             console.log(`${filtered.array1[i]},${filtered.array2[i]}`);
+    //             isPalindrome=true;
+    //         }else{
+    //             isPalindrome=false;
+    //         }
+        
+    // }
+    if(isPalindrome){
+        elements.para.innerText = `${elements.input.value} is a Palindrome`;
+    }else{
+        elements.para.innerText = `${elements.input.value} is not a Palindrome`;
+    }
+    elements.para.style.display = "block";
+}
+elements.check.addEventListener("click",main);
+
+
+
+
+
+** end of undefined **
+
+** start of undefined **
+
+*{
+    margin:0;
+    box-sizing: border-box;
+}
+body{
+    overflow: hidden;
+    height: 100vh;   
+    background-color: #0a0a23;
+}
+#main{
+    width:400px;
+    height:80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 60px;
+    left:35%;
+}
+img{
+    width:300px;
+    height: 50px;
+}
+.title{
+    color: #fffafa;
+    font-size:48px;
+    font-weight:bold;
+    font-family:'Times New Roman', Times, serif;
+    transform: translateY(-30px);
+}
+p{
+    color: #fffafa;
+}
+#input-area{
+    box-shadow:0 7px 2px 0 #7700ff;
+    height: fit-content;
+    background-color:#fffafa;;
+    padding: 20px;
+    border-radius: 20px;
+    transform: translateY(-30px);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "text text"
+                        "input  btn"
+                        "res res";
+}
+#text{
+    font-size: 20px;
+    text-align: center;
+    grid-area: text;
+    font-family: 'Courier New', Courier, monospace;
+}
+#text-input{
+    background-color: #fffafa;
+    grid-area: input;
+    margin:5px;
+    border: none;
+    border-bottom: solid 2px #7700ff;
+    transform: translateY(10px);
+    text-align: center;
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#check-btn{
+    transform: translateY(10px);
+    grid-area: btn;
+    margin:5px;
+    border-radius: 20px;
+    background-color: #7700ff;
+    height: 35px;
+    border: solid 1px #7700ff;
+    color:#fffafa;
+}
+#result{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    grid-area: res;
+    text-align: center;
+    font-size: 25px;
+    color: #0a0a23;
+    width: fit-content;
+    margin: auto;
+    transform: translateY(10px);
+    display: none;
+    word-spacing: normal;
+}
+
+span{
+    font-style: italic;
+}
+p:last-child{
+    color:black;
+    background-color: rgb(16, 199, 16);
+    text-align: center;
+    font-size: 20px;
+    height: fit-content;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    word-spacing: 30px;
+    border-radius: 20px;
+    padding: 10px;
+}
+.bulb{
+    font-style: normal;
+}
+
+** end of undefined **
+
